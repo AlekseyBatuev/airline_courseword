@@ -1,5 +1,4 @@
 import sqlite3
-import itertools
 
 airline_db = sqlite3.connect('Airline.db')
 airports_db = sqlite3.connect("Airports.db")
@@ -47,7 +46,7 @@ airline_cur.execute("""CREATE TABLE IF NOT EXISTS Model (
 airline_db.commit()
 
 
-# 1.Посчитать рентабельность рейсов
+# 1. Посчитать рентабельность рейсов
 def flights_profitability():
     flights = list(map(list, zip(*airline_cur.execute(
         f'SELECT jet_class, arrival_point, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost FROM Flights').fetchall())))
@@ -62,7 +61,7 @@ def flights_profitability():
     return (income - expenses) / expenses
 
 
-# 2.Посчитать налет самолетов (за месяц, например)
+# 2. Посчитать налет самолетов (за месяц, например)
 def flight_time():
     jet_classes = list(map(lambda x: x[0], airline_cur.execute(f'SELECT class FROM Jet_classes').fetchall()))
     print(jet_classes)
@@ -79,5 +78,5 @@ def flight_time():
     return dict(zip(jet_classes, travel_times))
 
 
-#print(flights_profitability())
+print(flights_profitability())
 print(flight_time())
