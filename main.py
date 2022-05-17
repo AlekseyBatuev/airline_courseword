@@ -82,9 +82,4 @@ def flight_time():
 
 print(flights_profitability())
 print(flight_time())
-print("ДОБАВИЛ СВОЙ КОД")
-print("hui")
-print("")
-print("Код Игоря2")
-print("Код Игоря3")
-print("Код Игоря4")
+
