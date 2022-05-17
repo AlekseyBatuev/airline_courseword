@@ -82,7 +82,4 @@ def flight_time():
 
 print(flights_profitability())
 print(flight_time())
-print("хуй")
-#
-print("хуй222")
 
