@@ -86,6 +86,5 @@ print("ДОБАВИЛ СВОЙ КОД")
 print("hui")
 print("")
 print("Код Игоря2")
-pass
-pass
 print("Код Игоря3")
+print("Код Игоря4")
