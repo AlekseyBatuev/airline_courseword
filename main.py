@@ -44,30 +44,40 @@ airline_cur.execute("""CREATE TABLE IF NOT EXISTS Model (
 	PRIMARY KEY("model_ID" AUTOINCREMENT)
 )""")
 
-
 airline_db.commit()
 
-#1.Посчитать рентабельность рейсов
+
+# 1.Посчитать рентабельность рейсов
 def flights_profitability():
-    flights = list(map(list, zip(*airline_cur.execute(f'SELECT jet_class, arrival_point, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost FROM Flights').fetchall())))
+    flights = list(map(list, zip(*airline_cur.execute(
+        f'SELECT jet_class, arrival_point, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost FROM Flights').fetchall())))
     jet_classes, airports = flights[0], flights[1]
-    maintenance_cost = [airports_db.execute(f'SELECT maintenance_cost FROM "{airports[i]}" WHERE "{jet_classes[i]}"').fetchone()[0] for i in range(len(airports))]
-    income = sum(list(map(lambda x, y: x*y, flights[2], flights[3])))
+    print(airports)
+    maintenance_cost = [airports_db.execute(
+        f'SELECT maintenance_cost FROM "{airports[i]}" WHERE class == "{jet_classes[i]}"').fetchone()[0] for i in
+                        range(len(airports))]
+    print(maintenance_cost)
+    income = sum(list(map(lambda x, y: x * y, flights[2], flights[3])))
     expenses = sum(flights[4]) + sum(flights[5]) + sum(maintenance_cost)
     return (income - expenses) / expenses
 
 
-#2.Посчитать налет самолетов (за месяц, например)
+# 2.Посчитать налет самолетов (за месяц, например)
 def flight_time():
     jet_classes = list(map(lambda x: x[0], airline_cur.execute(f'SELECT class FROM Jet_classes').fetchall()))
     print(jet_classes)
-    print(airline_db.execute(f'SELECT travel_time FROM Flights WHERE jet_class =="{jet_classes[0]}"').fetchall()[0])
-    print([sum(airline_db.execute(f'SELECT travel_time FROM Flights WHERE "{jet_class}"').fetchall()[0] for jet_class in jet_classes)])
-    return dict(zip(jet_classes, [sum(airline_db.execute(f'SELECT travel_time FROM Flights WHERE "{jet_class}"').fetchone()[0] for jet_class in jet_classes)]))
+    travel_times_list = [airline_db.execute(f'SELECT travel_time FROM Flights WHERE jet_class == "{jet_class}"').fetchall() for jet_class in jet_classes]
+    print(travel_times_list)
+    travel_times = []
+    for i in travel_times_list:
+        summ = 0
+        for j in i:
+            for k in j:
+                summ += k
+        travel_times.append(summ)
+    print(travel_times)
+    return dict(zip(jet_classes, travel_times))
 
 
-
-
-print(flight_time())
 #print(flights_profitability())
-
+print(flight_time())
