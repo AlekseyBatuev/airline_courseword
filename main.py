@@ -86,3 +86,5 @@ print("ДОБАВИЛ СВОЙ КОД")
 print("hui")
 print("")
 print("Код Игоря2")
+pass
+pass
