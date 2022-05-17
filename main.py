@@ -67,8 +67,10 @@ def flight_time():
     print(jet_classes)
     for val in airline_cur.execute(f'SELECT travel_time FROM Flights WHERE jet_class == "{jet_classes[2]}"'):
         print(val)
-    travel_times_list = [airline_db.execute(f'SELECT travel_time FROM Flights WHERE jet_class == "{jet_class}"').fetchall() for jet_class in jet_classes]
-    #print(travel_times_list)
+    travel_times_list = [
+        airline_db.execute(f'SELECT travel_time FROM Flights WHERE jet_class == "{jet_class}"').fetchall() for jet_class
+        in jet_classes]
+    # print(travel_times_list)
     travel_times = []
     for i in travel_times_list:
         summ = 0
@@ -76,10 +78,9 @@ def flight_time():
             for k in j:
                 summ += k
         travel_times.append(summ)
-    #print(travel_times)
+    # print(travel_times)
     return dict(zip(jet_classes, travel_times))
 
 
 print(flights_profitability())
 print(flight_time())
-
