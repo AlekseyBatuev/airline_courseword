@@ -183,3 +183,18 @@ fabric.properties
 
 # idea folder, uncomment if you don't need it
 # .idea
+
+*.pyc
+*.pyo
+*.7z*
+.idea
+.settings
+.project
+.pydevproject
+__pycache__
+Docs
+Patch*
+
+example.py
+
+~$riant_kursy (1).docx
