@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from PyQt5.Qt import *
-
+from PyQt5.QtWidgets import QMessageBox
 import dialog
 from form import Ui_MainWindow
 from dialog import Ui_Dialog
@@ -47,6 +47,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionKZN_2.triggered.connect(
             lambda: self.open_table(self.menuParking_db.title(), self.actionKZN_2.text()))
 
+        self.addRowButton.clicked.connect(
+            lambda: self.add_row())
+        self.delRowButton.clicked.connect(
+            lambda: self.del_row())
+
+
+        #self.tableView.dataChanged((0, 0), (self.model.rowCount() - 1, self.model.columnCount() - 1)).connect(self.model.submitAll())
+
     def open_table(self, bd_name, table_name):
         db = QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName(bd_name)
@@ -55,17 +63,48 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.model.setTable(table_name)
         self.model.select()
         self.tableView.setModel(self.model)
-        row_position = self.model.rowCount()
-        self.model.insertRow(row_position)
-        self.plus_row = QtWidgets.QPushButton(self.centralwidget)
+        self.model.removeRow(self.model.rowCount())
+
 
     def set_result(self, result):
         self.dialog = Dialog()
         self.dialog.show()
 
-        self.dialog.labelResult.setText(result)
+        #self.dialog.tableViewDialog.
 
         self.dialog.okButton.clicked.connect(lambda: self.dialog.close())
+
+    def add_row(self):
+        try:
+            self.model.insertRow(self.model.rowCount())
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Таблица не выбрана")
+            msg.setWindowTitle("Ошибка")
+            msg.exec_()
+
+    def del_row(self):
+        try:
+            selected = self.tableView.selectedIndexes()
+
+            rows = set(index.row() for index in selected)
+            rows = list(rows)
+            rows.sort()
+            first = rows[0]
+
+            self.model.removeRow(first)
+            self.model.select()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Выделите строку для удаления")
+            msg.setWindowTitle("Ошибка")
+            msg.exec_()
+
+
+
+
 
 
 class Dialog(QtWidgets.QDialog, Ui_Dialog):
