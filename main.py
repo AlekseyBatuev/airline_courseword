@@ -1,14 +1,18 @@
 from PyQt5 import QtWidgets
 from PyQt5.Qt import *
 
-from Form import Ui_MainWindow
-from Funcs import Funcs
+import dialog
+from form import Ui_MainWindow
+from dialog import Ui_Dialog
+
+from funcs import Funcs
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
 
+        self.dialog = None
         self.plus_row = None
         self.model = None
         self.setupUi(self)
@@ -56,7 +60,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.plus_row = QtWidgets.QPushButton(self.centralwidget)
 
     def set_result(self, result):
-        self.labelResult.setText(result)
+        self.dialog = Dialog()
+        self.dialog.show()
+
+        self.dialog.labelResult.setText(result)
+
+        self.dialog.okButton.clicked.connect(lambda: self.dialog.close())
+
+
+class Dialog(QtWidgets.QDialog, Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
 
 
 if __name__ == "__main__":
@@ -65,4 +80,4 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     w = MainWindow()
     w.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
