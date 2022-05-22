@@ -46,13 +46,47 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.model.select()
         self.tableView.setModel(self.model)
 
-        self.rentabButton.clicked.connect(self.set_result(flights_profitability()))
-        self.naletButton.clicked.connect(self.set_result(flight_time()))
-        self.zapolnButton.clicked.connect(self.set_result(flight_occupancy()))
-        self.prostoiButton.clicked.connect(self.set_result(parking_cost()))
+        self.rentabButton.clicked.connect(lambda: self.set_result(flights_profitability()))
+        self.naletButton.clicked.connect(lambda: self.set_result(flight_time()))
+        self.zapolnButton.clicked.connect(lambda: self.set_result(flight_occupancy()))
+        self.prostoiButton.clicked.connect(lambda: self.set_result(parking_cost()))
 
-    def open_table(self):
-        print("еще не сделал")
+        self.actionClasses.triggered.connect(
+            lambda: self.open_table(self.menuAirline_db.title(), self.actionClasses.text()))
+        self.actionFlights.triggered.connect(
+            lambda: self.open_table(self.menuAirline_db.title(), self.actionFlights.text()))
+        self.actionJets.triggered.connect(
+            lambda: self.open_table(self.menuAirline_db.title(), self.actionJets.text()))
+        self.actionModels.triggered.connect(
+            lambda: self.open_table(self.menuAirline_db.title(), self.actionModels.text()))
+
+        self.actionDME.triggered.connect(
+            lambda: self.open_table(self.menuAirports_db.title(), self.actionDME.text()))
+        self.actionLED.triggered.connect(
+            lambda: self.open_table(self.menuAirports_db.title(), self.actionLED.text()))
+        self.actionKZN.triggered.connect(
+            lambda: self.open_table(self.menuAirports_db.title(), self.actionKZN.text()))
+
+        self.actionDME_2.triggered.connect(
+            lambda: self.open_table(self.menuParking_db.title(), self.actionDME_2.text()))
+        self.actionLED_2.triggered.connect(
+            lambda: self.open_table(self.menuParking_db.title(), self.actionLED_2.text()))
+        self.actionKZN_2.triggered.connect(
+            lambda: self.open_table(self.menuParking_db.title(), self.actionKZN_2.text()))
+
+
+    def open_table(self, bd_name, table_name):
+        db = QSqlDatabase.addDatabase('QSQLITE')
+        db.setDatabaseName(bd_name)
+        db.open()
+        self.model = QSqlTableModel(self)
+        self.model.setTable(table_name)
+        self.model.select()
+        self.tableView.setModel(self.model)
+        rowPosition = self.model.rowCount()
+        self.model.insertRow(rowPosition)
+        self.plusRow = QtWidgets.QPushButton(self.centralwidget)
+        #self.model.insertRecor(rowPosition, )
 
     def set_result(self, result):
         self.labelResult.setText(result)
@@ -88,7 +122,7 @@ def flights_profitability():
     expenses = sum(depreciation_cost) + sum(fuel_cost) + sum(maintenance_cost)
 
     print((income - expenses) / expenses)
-    return str((income - expenses) / expenses)
+    return str(round(((income - expenses) / expenses), 2))
 
 # 2. Посчитать налет самолетов (за месяц, например)
 def flight_time():
@@ -101,7 +135,7 @@ def flight_time():
     ''').fetchall() for i in jet_id]
 
     print(dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list])))
-    return dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]))
+    return str(dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list])))
 
 # 3. Посчитать “заполняемость” рейса в % за месяц.
 def flight_occupancy():
@@ -126,7 +160,7 @@ def flight_occupancy():
     ratio = list(map(lambda x, y: round(x / y, 2), number_of_tickets_sold, number_of_passangers))
 
     print(dict(zip(flight_id, ratio)))
-    return dict(zip(flight_id, ratio))
+    return str(dict(zip(flight_id, ratio)))
 
 # 4. Посчитать стоимость простоя самолетов.
 def parking_cost():
@@ -167,7 +201,7 @@ def parking_cost():
     ''').fetchone()[0] * val for key, val in airports_hours_dict[i].items()] for i in range(len(classes))]
 
     print(sum(map(sum, cost_dict)))
-    return sum(map(sum, cost_dict))
+    return str(sum(map(sum, cost_dict)))
 
 
 if __name__ == "__main__":
