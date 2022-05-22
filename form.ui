@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Авиакомпания</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -152,7 +152,6 @@
      <property name="title">
       <string>Airline.db</string>
      </property>
-     <addaction name="actionAirports"/>
      <addaction name="actionClasses"/>
      <addaction name="actionFlights"/>
      <addaction name="actionJets"/>
@@ -171,13 +170,6 @@
     <addaction name="menuAirline_db"/>
     <addaction name="menuParking_db"/>
    </widget>
-   <widget class="QMenu" name="fileMenu">
-    <property name="title">
-     <string>Файл</string>
-    </property>
-    <addaction name="action_2"/>
-   </widget>
-   <addaction name="fileMenu"/>
    <addaction name="selectTableMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">

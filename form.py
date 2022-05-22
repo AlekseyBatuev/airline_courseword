@@ -64,8 +64,6 @@ class Ui_MainWindow(object):
         self.menuAirline_db.setObjectName("menuAirline_db")
         self.menuParking_db = QtWidgets.QMenu(self.selectTableMenu)
         self.menuParking_db.setObjectName("menuParking_db")
-        self.fileMenu = QtWidgets.QMenu(self.menubar)
-        self.fileMenu.setObjectName("fileMenu")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setEnabled(True)
@@ -98,7 +96,6 @@ class Ui_MainWindow(object):
         self.menuAirports_db.addAction(self.actionDME)
         self.menuAirports_db.addAction(self.actionKZN)
         self.menuAirports_db.addAction(self.actionLED)
-        self.menuAirline_db.addAction(self.actionAirports)
         self.menuAirline_db.addAction(self.actionClasses)
         self.menuAirline_db.addAction(self.actionFlights)
         self.menuAirline_db.addAction(self.actionJets)
@@ -110,8 +107,6 @@ class Ui_MainWindow(object):
         self.selectTableMenu.addAction(self.menuAirports_db.menuAction())
         self.selectTableMenu.addAction(self.menuAirline_db.menuAction())
         self.selectTableMenu.addAction(self.menuParking_db.menuAction())
-        self.fileMenu.addAction(self.action_2)
-        self.menubar.addAction(self.fileMenu.menuAction())
         self.menubar.addAction(self.selectTableMenu.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -119,7 +114,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Авиакомпания"))
         self.rentabButton.setText(_translate("MainWindow", "рентабельность рейсов "))
         self.prostoiButton.setText(_translate("MainWindow", "стоимость простоя самолетов"))
         self.labelCalc.setText(_translate("MainWindow", "Посчитать:"))
@@ -129,7 +124,6 @@ class Ui_MainWindow(object):
         self.menuAirports_db.setTitle(_translate("MainWindow", "Airports.db"))
         self.menuAirline_db.setTitle(_translate("MainWindow", "Airline.db"))
         self.menuParking_db.setTitle(_translate("MainWindow", "Parking.db"))
-        self.fileMenu.setTitle(_translate("MainWindow", "Файл"))
         self.actionDME.setText(_translate("MainWindow", "DME"))
         self.actionKZN.setText(_translate("MainWindow", "KZN"))
         self.actionLED.setText(_translate("MainWindow", "LED"))

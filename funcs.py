@@ -1,6 +1,5 @@
 import sqlite3
 from itertools import chain
-import json
 
 from PyQt5 import QtWidgets
 from PyQt5.Qt import *
