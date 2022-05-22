@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>822</width>
+    <height>706</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="8" column="1">
+     <widget class="QPushButton" name="rentabButton">
+      <property name="text">
+       <string>рентабельность рейсов </string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QPushButton" name="prostoiButton">
+      <property name="text">
+       <string>стоимость простоя самолетов</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="3">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="1" colspan="4">
+     <widget class="QTableView" name="tableView">
+      <property name="minimumSize">
+       <size>
+        <width>800</width>
+        <height>400</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLabel" name="labelCalc">
+      <property name="text">
+       <string>Посчитать:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="13" column="2">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="11" column="1">
+     <widget class="QPushButton" name="naletButton">
+      <property name="text">
+       <string>налёт самолетов</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1" colspan="4">
+     <widget class="QLabel" name="labelResult">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="QPushButton" name="zapolnButton">
+      <property name="text">
+       <string>заполняемость самолетов</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="4">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>822</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="selectTableMenu">
+    <property name="title">
+     <string>Выбрать таблицу</string>
+    </property>
+    <widget class="QMenu" name="menuAirports_db">
+     <property name="title">
+      <string>Airports.db</string>
+     </property>
+     <addaction name="actionDME"/>
+     <addaction name="actionKZN"/>
+     <addaction name="actionLED"/>
+    </widget>
+    <widget class="QMenu" name="menuAirline_db">
+     <property name="title">
+      <string>Airline.db</string>
+     </property>
+     <addaction name="actionAirports"/>
+     <addaction name="actionClasses"/>
+     <addaction name="actionFlights"/>
+     <addaction name="actionJets"/>
+     <addaction name="actionModels"/>
+    </widget>
+    <widget class="QMenu" name="menuParking_db">
+     <property name="title">
+      <string>Parking.db</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="actionDME_2"/>
+     <addaction name="actionKZN_2"/>
+     <addaction name="actionLED_2"/>
+    </widget>
+    <addaction name="menuAirports_db"/>
+    <addaction name="menuAirline_db"/>
+    <addaction name="menuParking_db"/>
+   </widget>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="action_2"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="selectTableMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="actionDME">
+   <property name="text">
+    <string>DME</string>
+   </property>
+  </action>
+  <action name="actionKZN">
+   <property name="text">
+    <string>KZN</string>
+   </property>
+  </action>
+  <action name="actionLED">
+   <property name="text">
+    <string>LED</string>
+   </property>
+  </action>
+  <action name="actionAirports">
+   <property name="text">
+    <string>Airports</string>
+   </property>
+  </action>
+  <action name="actionClasses">
+   <property name="text">
+    <string>Classes</string>
+   </property>
+  </action>
+  <action name="actionFlights">
+   <property name="text">
+    <string>Flights</string>
+   </property>
+  </action>
+  <action name="actionJets">
+   <property name="text">
+    <string>Jets</string>
+   </property>
+  </action>
+  <action name="actionModels">
+   <property name="text">
+    <string>Models</string>
+   </property>
+  </action>
+  <action name="actionDME_2">
+   <property name="text">
+    <string>DME</string>
+   </property>
+  </action>
+  <action name="actionKZN_2">
+   <property name="text">
+    <string>KZN</string>
+   </property>
+  </action>
+  <action name="actionLED_2">
+   <property name="text">
+    <string>LED</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Сохранить изменения</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
