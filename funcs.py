@@ -13,9 +13,9 @@ class Funcs:
 
     # 1. Посчитать рентабельность рейсов
     def flights_profitability(self):
-        jet_id, airports, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost = list(
+        flight_id, jet_id, airports, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost = list(
             zip(*self.airline_cur.execute(f'''
-            SELECT jet_id, arrival_point, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost 
+            SELECT flight_id, jet_id, arrival_point, ticket_price, number_of_tickets_sold, depreciation_cost, fuel_cost 
             FROM Flights
         ''').fetchall()))
 
@@ -37,11 +37,11 @@ class Funcs:
             WHERE class == "{classes[i]}"
         ''').fetchone()[0] for i in range(len(airports))]
 
-        income = sum(list(map(lambda x, y: x * y, ticket_price, number_of_tickets_sold)))
-        expenses = sum(depreciation_cost) + sum(fuel_cost) + sum(maintenance_cost)
+        income = list(map(lambda x, y: x * y, ticket_price, number_of_tickets_sold))
+        expenses = list(map(sum, zip(depreciation_cost, fuel_cost, maintenance_cost)))
 
-        print((income - expenses) / expenses)
-        return "Рентабельность рейсов за прошедший месяц: " + str(round(((income - expenses) / expenses), 2))
+        return dict(zip(flight_id, [round(x/y, 2) for x, y in zip([i-j for i, j in zip(income, expenses)], expenses)]))
+
 
     # 2. Посчитать налет самолетов (за месяц, например)
     def flight_time(self):
@@ -52,13 +52,7 @@ class Funcs:
             WHERE jet_id == "{i}"
         ''').fetchall() for i in jet_id]
 
-        print(dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list])))
-        result_dict = dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]))
-        result_str = "№ борта часы" + "\n"
-        for key, val in result_dict.items():
-            result_str += str(key) + ": " + str(val) + "\n"
-        print(result_str)
-        return result_str
+        return dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]))
 
 
 
@@ -83,8 +77,7 @@ class Funcs:
 
         ratio = list(map(lambda x, y: round(x / y, 2), number_of_tickets_sold, number_of_passangers))
 
-        print(dict(zip(flight_id, ratio)))
-        return str(dict(zip(flight_id, ratio)))
+        return dict(zip(flight_id, ratio))
 
     # 4. Посчитать стоимость простоя самолетов.
     def parking_cost(self):
@@ -117,16 +110,17 @@ class Funcs:
 
         airports_hours_dict = list(dict(zip(airports, i)) for i in parking_hours)
 
-        cost_dict = [[self.airports_bd.execute(f'''
+        cost_lists = [[self.airports_bd.execute(f'''
             SELECT parking_cost 
             FROM "{key}" 
             WHERE class == "{classes[i]}"
         ''').fetchone()[0] * val for key, val in airports_hours_dict[i].items()] for i in range(len(classes))]
 
-        print(sum(map(sum, cost_dict)))
-        return str(sum(map(sum, cost_dict)))
+        return dict(zip(jet_id, list(map(sum, cost_lists))))
 
-
+print(Funcs().flights_profitability())
 print(Funcs().flight_time())
+print(Funcs().flight_occupancy())
+print(Funcs().parking_cost())
 
 
