@@ -41,7 +41,7 @@ class Funcs:
         expenses = sum(depreciation_cost) + sum(fuel_cost) + sum(maintenance_cost)
 
         print((income - expenses) / expenses)
-        return str(round(((income - expenses) / expenses), 2))
+        return "Рентабельность рейсов за прошедший месяц: " + str(round(((income - expenses) / expenses), 2))
 
     # 2. Посчитать налет самолетов (за месяц, например)
     def flight_time(self):
@@ -53,7 +53,14 @@ class Funcs:
         ''').fetchall() for i in jet_id]
 
         print(dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list])))
-        return str(dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list])))
+        result_dict = dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]))
+        result_str = "№ борта часы" + "\n"
+        for key, val in result_dict.items():
+            result_str += str(key) + ": " + str(val) + "\n"
+        print(result_str)
+        return result_str
+
+
 
     # 3. Посчитать “заполняемость” рейса в % за месяц.
     def flight_occupancy(self):
@@ -120,6 +127,6 @@ class Funcs:
         return str(sum(map(sum, cost_dict)))
 
 
-
+print(Funcs().flight_time())
 
 

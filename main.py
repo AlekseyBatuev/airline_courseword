@@ -6,7 +6,9 @@ from form import Ui_MainWindow
 from dialog import Ui_Dialog
 
 from funcs import Funcs
-
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -63,14 +65,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.model.setTable(table_name)
         self.model.select()
         self.tableView.setModel(self.model)
-        self.model.removeRow(self.model.rowCount())
 
 
     def set_result(self, result):
         self.dialog = Dialog()
         self.dialog.show()
-
-        #self.dialog.tableViewDialog.
+        self.dialog.labelResult.setText(result)
 
         self.dialog.okButton.clicked.connect(lambda: self.dialog.close())
 

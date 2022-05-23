@@ -14,7 +14,7 @@
    <string>Результат</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="0" column="0">
     <widget class="QLabel" name="labelResult">
      <property name="font">
       <font>
@@ -29,15 +29,12 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <widget class="QPushButton" name="okButton">
      <property name="text">
       <string>Ок</string>
      </property>
     </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QTableView" name="tableViewDialog"/>
    </item>
   </layout>
  </widget>
