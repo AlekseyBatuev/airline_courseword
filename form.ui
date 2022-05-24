@@ -7,13 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>671</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
     <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -23,36 +29,91 @@
    <iconset>
     <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="12" column="2">
-     <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+    <item row="11" column="1">
+     <widget class="QPushButton" name="prostoiButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color:rgb(212, 212, 212)
+	border-radius: 2;
+}</string>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
+      <property name="text">
+       <string>СТОИМОСТЬ ПРОСТОЯ САМОЛЕТОВ</string>
       </property>
-     </spacer>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="4">
+     <widget class="QTableView" name="tableView"/>
+    </item>
+    <item row="13" column="1">
+     <widget class="QPushButton" name="naletButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color:rgb(212, 212, 212)
+	border-radius: 2;
+}</string>
+      </property>
+      <property name="text">
+       <string>НАЛЁТ САМОЛЕТОВ</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1" rowspan="2">
+     <widget class="QLabel" name="labelCalc">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Посчитать:</string>
+      </property>
+     </widget>
     </item>
     <item row="8" column="1">
-     <widget class="QPushButton" name="zapolnButton">
-      <property name="text">
-       <string>заполняемость самолетов</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
      <widget class="QPushButton" name="rentabButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI Historic</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color:rgb(212, 212, 212)
+	border-radius: 2;
+}</string>
+      </property>
       <property name="text">
-       <string>рентабельность рейсов </string>
+       <string>РЕНТАБЕЛЬНОСТЬ РЕЙСОВ </string>
       </property>
      </widget>
     </item>
-    <item row="12" column="3">
+    <item row="9" column="1">
+     <widget class="QPushButton" name="zapolnButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color:rgb(212, 212, 212)
+	border-radius: 2;
+}</string>
+      </property>
+      <property name="text">
+       <string> ЗАПОЛНЯЕМОСТЬ САМОЛЕТОВ</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="3">
      <spacer name="horizontalSpacer_4">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -65,37 +126,7 @@
       </property>
      </spacer>
     </item>
-    <item row="9" column="1">
-     <widget class="QPushButton" name="prostoiButton">
-      <property name="text">
-       <string>стоимость простоя самолетов</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="4">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="11" column="1">
-     <widget class="QPushButton" name="naletButton">
-      <property name="text">
-       <string>налёт самолетов</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="4">
-     <widget class="QTableView" name="tableView"/>
-    </item>
-    <item row="12" column="1">
+    <item row="14" column="1">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -108,15 +139,46 @@
       </property>
      </spacer>
     </item>
-    <item row="5" column="1" rowspan="2">
-     <widget class="QLabel" name="labelCalc">
-      <property name="text">
-       <string>Посчитать:</string>
+    <item row="14" column="4">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-     </widget>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="14" column="2">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="6" column="3">
      <widget class="QPushButton" name="addRowButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color:rgb(212, 212, 212)
+	border-radius: 2;
+}</string>
+      </property>
       <property name="text">
        <string>+</string>
       </property>
@@ -124,6 +186,18 @@
     </item>
     <item row="6" column="4">
      <widget class="QPushButton" name="delRowButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color:rgb(212, 212, 212)
+	border-radius: 2;
+}</string>
+      </property>
       <property name="text">
        <string>-</string>
       </property>
@@ -140,14 +214,20 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <widget class="QMenu" name="selectTableMenu">
     <property name="title">
      <string>Выбрать таблицу</string>
     </property>
     <widget class="QMenu" name="menuAirports_db">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="title">
       <string>Airports.db</string>
      </property>
@@ -156,6 +236,9 @@
      <addaction name="actionLED"/>
     </widget>
     <widget class="QMenu" name="menuAirline_db">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="title">
       <string>Airline.db</string>
      </property>
