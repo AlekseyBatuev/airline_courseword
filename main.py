@@ -1,4 +1,3 @@
-
 from PyQt5.Qt import *
 from PyQt5.QtWidgets import QMessageBox
 from form import Ui_MainWindow
@@ -7,7 +6,6 @@ from dialog import Ui_Dialog
 from funcs import Funcs
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
-
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -21,10 +19,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         funcs = Funcs()  # Создаю объект класса Funcs для использования его методов (функций расчета)
 
-        self.rentabButton.clicked.connect(lambda: self.set_result(funcs.flights_profitability()))
-        self.naletButton.clicked.connect(lambda: self.set_result(funcs.flight_time()))
-        self.zapolnButton.clicked.connect(lambda: self.set_result(funcs.flight_occupancy()))
-        self.prostoiButton.clicked.connect(lambda: self.set_result(funcs.parking_cost()))
+        self.rentabButton.clicked.connect(lambda: self.open_result_dialog(funcs.flights_profitability()))
+        self.naletButton.clicked.connect(lambda: self.open_result_dialog(funcs.flight_time()))
+        self.zapolnButton.clicked.connect(lambda: self.open_result_dialog(funcs.flight_occupancy()))
+        self.prostoiButton.clicked.connect(lambda: self.open_result_dialog(funcs.parking_cost()))
 
         self.actionClasses.triggered.connect(
             lambda: self.open_table(self.menuAirline_db.title(), self.actionClasses.text()))
@@ -54,7 +52,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.delRowButton.clicked.connect(
             lambda: self.del_row())
 
-
     def open_table(self, bd_name, table_name):
         db = QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName(bd_name)
@@ -65,14 +62,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tableView.setModel(self.model)
         self.tableView.resizeColumnsToContents()
 
-
-
-    def set_result(self, result):
+    def open_result_dialog(self, calculated_result):
         self.dialog = Dialog()
         self.dialog.show()
 
-        data = result
-        model = MyTableModel(data)
+        data = calculated_result
+        model = ResultTableModel(data)
         self.dialog.tableView.setModel(model)
         self.dialog.tableView.resizeColumnsToContents()
 
@@ -83,6 +78,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.model.insertRow(self.model.rowCount())
         except:
             msg = QMessageBox()
+            msg.setWindowIcon(QtGui.QIcon('icon.png'))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Таблица не выбрана")
             msg.setWindowTitle("Ошибка")
@@ -101,14 +97,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.model.select()
         except:
             msg = QMessageBox()
+            msg.setWindowIcon(QtGui.QIcon('icon.png'))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Выделите строку для удаления")
             msg.setWindowTitle("Ошибка")
             msg.exec_()
 
 
-
-class MyTableModel(QtCore.QAbstractTableModel):
+class ResultTableModel(QtCore.QAbstractTableModel):
     def __init__(self, data=[[]], parent=None):
         super().__init__(parent)
         self.data = data
@@ -131,7 +127,6 @@ class MyTableModel(QtCore.QAbstractTableModel):
             row = index.row()
             col = index.column()
             return str(self.data[col + 1][row])
-
 
 
 class Dialog(QtWidgets.QDialog, Ui_Dialog):

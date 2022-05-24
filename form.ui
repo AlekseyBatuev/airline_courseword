@@ -6,56 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>822</width>
-    <height>682</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Авиакомпания</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="12" column="3">
-     <spacer name="horizontalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="12" column="2">
      <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="12" column="1">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="12" column="4">
-     <spacer name="horizontalSpacer_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -74,12 +45,25 @@
       </property>
      </widget>
     </item>
-    <item row="11" column="1">
-     <widget class="QPushButton" name="naletButton">
+    <item row="7" column="1">
+     <widget class="QPushButton" name="rentabButton">
       <property name="text">
-       <string>налёт самолетов</string>
+       <string>рентабельность рейсов </string>
       </property>
      </widget>
+    </item>
+    <item row="12" column="3">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="9" column="1">
      <widget class="QPushButton" name="prostoiButton">
@@ -88,12 +72,41 @@
       </property>
      </widget>
     </item>
-    <item row="7" column="1">
-     <widget class="QPushButton" name="rentabButton">
+    <item row="12" column="4">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="11" column="1">
+     <widget class="QPushButton" name="naletButton">
       <property name="text">
-       <string>рентабельность рейсов </string>
+       <string>налёт самолетов</string>
       </property>
      </widget>
+    </item>
+    <item row="0" column="1" colspan="4">
+     <widget class="QTableView" name="tableView"/>
+    </item>
+    <item row="12" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="5" column="1" rowspan="2">
      <widget class="QLabel" name="labelCalc">
@@ -102,23 +115,20 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1" colspan="4">
-     <widget class="QTableView" name="tableView"/>
+    <item row="6" column="3">
+     <widget class="QPushButton" name="addRowButton">
+      <property name="text">
+       <string>+</string>
+      </property>
+     </widget>
     </item>
-    <item row="1" column="3" colspan="2">
+    <item row="6" column="4">
      <widget class="QPushButton" name="delRowButton">
       <property name="text">
        <string>-</string>
       </property>
       <property name="default">
        <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QPushButton" name="addRowButton">
-      <property name="text">
-       <string>+</string>
       </property>
      </widget>
     </item>
@@ -129,7 +139,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>822</width>
+     <width>800</width>
      <height>26</height>
     </rect>
    </property>

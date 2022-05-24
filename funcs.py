@@ -42,7 +42,6 @@ class Funcs:
 
         return [["№Рейса", "Рентабельность"], flight_id, [round(x/y, 2) for x, y in zip([i-j for i, j in zip(income, expenses)], expenses)]]
 
-
     # 2. Посчитать налет самолетов (за месяц, например)
     def flight_time(self):
         jet_id = list(chain(*self.airline_cur.execute(f'SELECT jet_id FROM Jets').fetchall()))
@@ -53,8 +52,6 @@ class Funcs:
         ''').fetchall() for i in jet_id]
 
         return [["№Самолета", "Налет"], jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]]
-
-
 
     # 3. Посчитать “заполняемость” рейса в % за месяц.
     def flight_occupancy(self):
@@ -69,13 +66,13 @@ class Funcs:
             WHERE jet_id == "{i}"
         ''').fetchone()[0] for i in jet_id]
 
-        number_of_passangers = [self.airline_bd.execute(f'''
+        number_of_passengers = [self.airline_bd.execute(f'''
             SELECT number_of_passengers 
             FROM "Models" 
             WHERE model_name == "{i}"
         ''').fetchone()[0] for i in models]
 
-        ratio = list(map(lambda x, y: round(x / y, 2), number_of_tickets_sold, number_of_passangers))
+        ratio = list(map(lambda x, y: round(x / y, 2), number_of_tickets_sold, number_of_passengers))
 
         return [["№Рейса", "Заполняемость"], flight_id, ratio]
 
