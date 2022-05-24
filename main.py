@@ -1,14 +1,14 @@
-from PyQt5 import QtWidgets
+
 from PyQt5.Qt import *
 from PyQt5.QtWidgets import QMessageBox
-import dialog
 from form import Ui_MainWindow
 from dialog import Ui_Dialog
 
 from funcs import Funcs
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
+
+
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -55,8 +55,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             lambda: self.del_row())
 
 
-        #self.tableView.dataChanged((0, 0), (self.model.rowCount() - 1, self.model.columnCount() - 1)).connect(self.model.submitAll())
-
     def open_table(self, bd_name, table_name):
         db = QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName(bd_name)
@@ -65,12 +63,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.model.setTable(table_name)
         self.model.select()
         self.tableView.setModel(self.model)
+        self.tableView.resizeColumnsToContents()
+
 
 
     def set_result(self, result):
         self.dialog = Dialog()
         self.dialog.show()
-        self.dialog.labelResult.setText(result)
+
+        data = result
+        model = MyTableModel(data)
+        self.dialog.tableView.setModel(model)
+        self.dialog.tableView.resizeColumnsToContents()
 
         self.dialog.okButton.clicked.connect(lambda: self.dialog.close())
 
@@ -104,6 +108,29 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 
+class MyTableModel(QtCore.QAbstractTableModel):
+    def __init__(self, data=[[]], parent=None):
+        super().__init__(parent)
+        self.data = data
+
+    def headerData(self, section: int, orientation: Qt.Orientation, role: int):
+        if role == QtCore.Qt.DisplayRole:
+            if orientation == Qt.Horizontal:
+                return str(self.data[0][section])
+            else:
+                return str(section + 1)
+
+    def columnCount(self, parent=None):
+        return len(self.data) - 1
+
+    def rowCount(self, parent=None):
+        return len(self.data[1])
+
+    def data(self, index: QModelIndex, role: int):
+        if role == QtCore.Qt.DisplayRole:
+            row = index.row()
+            col = index.column()
+            return str(self.data[col + 1][row])
 
 
 

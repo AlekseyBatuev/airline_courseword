@@ -40,7 +40,7 @@ class Funcs:
         income = list(map(lambda x, y: x * y, ticket_price, number_of_tickets_sold))
         expenses = list(map(sum, zip(depreciation_cost, fuel_cost, maintenance_cost)))
 
-        return dict(zip(flight_id, [round(x/y, 2) for x, y in zip([i-j for i, j in zip(income, expenses)], expenses)]))
+        return [["№Рейса", "Рентабельность"], flight_id, [round(x/y, 2) for x, y in zip([i-j for i, j in zip(income, expenses)], expenses)]]
 
 
     # 2. Посчитать налет самолетов (за месяц, например)
@@ -52,7 +52,7 @@ class Funcs:
             WHERE jet_id == "{i}"
         ''').fetchall() for i in jet_id]
 
-        return dict(zip(jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]))
+        return [["№Самолета", "Налет"], jet_id, [sum(list(chain(*lists_of_lists))) for lists_of_lists in travel_times_list]]
 
 
 
@@ -77,7 +77,7 @@ class Funcs:
 
         ratio = list(map(lambda x, y: round(x / y, 2), number_of_tickets_sold, number_of_passangers))
 
-        return dict(zip(flight_id, ratio))
+        return [["№Рейса", "Заполняемость"], flight_id, ratio]
 
     # 4. Посчитать стоимость простоя самолетов.
     def parking_cost(self):
@@ -116,11 +116,5 @@ class Funcs:
             WHERE class == "{classes[i]}"
         ''').fetchone()[0] * val for key, val in airports_hours_dict[i].items()] for i in range(len(classes))]
 
-        return dict(zip(jet_id, list(map(sum, cost_lists))))
-
-print(Funcs().flights_profitability())
-print(Funcs().flight_time())
-print(Funcs().flight_occupancy())
-print(Funcs().parking_cost())
-
+        return [["№Самолета", "Стоимость простоя"], jet_id, list(map(sum, cost_lists))]
 
